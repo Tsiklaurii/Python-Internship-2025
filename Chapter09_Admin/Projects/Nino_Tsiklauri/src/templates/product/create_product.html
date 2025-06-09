@@ -1,0 +1,24 @@
+{% extends "partials/base.html" %}
+
+{% block title %}
+Create Product
+{% endblock %}
+
+{% block content %}
+<div class="container registration">
+    <form class="row" method="post" enctype="multipart/form-data">
+        {% for errors in form.errors.values() %}
+            {% for error in errors %}
+                <p class="text-danger">* {{ error }}</p>
+            {% endfor %}
+        {% endfor %}
+
+        {{ form.hidden_tag() }}
+        {{ form.name(placeholder=form.name.label.text, class="form-control") }}
+        {{ form.author(placeholder=form.author.label.text, class="form-control") }}
+        {{ form.price(placeholder=form.price.label.text, class="form-control") }}
+        {{ form.image(class="form-control", accept=".jpg, .png, .jpeg") }}
+        {{ form.submit(class="registration-btn") }}
+    </form>
+</div>
+{% endblock %}
