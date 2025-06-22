@@ -1,0 +1,35 @@
+{% extends "partials/base.html" %}
+
+{% block title %}
+View Product
+{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <!-- Card -->
+    <div class="row">
+        <div class="bg-white shadow h-25 text-center">
+            <img src="/static/assets/{{ product.image}}">
+        </div>
+
+        <!--Table-->
+        <table class="table">
+            <tbody>
+            <tr>
+                <th scope="row">სახელი:</th>
+                <td>{{ product.name }}</td>
+            </tr>
+            <tr>
+                <th scope="row">ავტორი:</th>
+                <td>{{ product.author }}</td>
+            </tr>
+            <tr>
+                <th scope="row">ფასი:</th>
+                <td>{{ product.price }}₾</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
