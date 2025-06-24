@@ -1,0 +1,155 @@
+{% extends "partials/base.html" %}
+
+{% block title %}
+Main Page
+{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <!-- Carousel -->
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active" data-bs-interval="2000">
+                <img src="/static/assets/cover1.png"
+                     class="d-block w-100" alt="photo1">
+            </div>
+            <div class="carousel-item" data-bs-interval="2000">
+                <img src="/static/assets/cover2.png"
+                     class="d-block w-100" alt="photo2">
+            </div>
+            <div class="carousel-item" data-bs-interval="2000">
+                <img src="/static/assets/cover3.png"
+                     class="d-block w-100" alt="photo3">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </button>
+    </div>
+    <a href="/add_product" class="btn btn-primary" style="margin-bottom: 20px;">Add New Product</a>
+
+
+    <!-- Card -->
+    {% for product in products %}
+    {% if loop.index0 % 4 == 0 %}
+    {% if not loop.first %}
+        </div>
+    {% endif %}
+    <div class="row">
+        {% endif %}
+            <div class="col-md-3">
+                <div class="card shadow">
+                    <img src="/static/assets/{{ product.image }}" class="card-img-top product-img">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text">{{ product.author }}</p>
+                        <p class="price">{{ product.price }}₾</p>
+                        <a href="/view/{{ product.id }}" class="btn btn-primary ">View</a>
+
+                        {% if current_user.is_authenticated and current_user.is_admin() %}
+                            <a href="/edit_product/{{ product.id }}" class="btn btn-primary ">Edit</a>
+                            <a href="/delete_product/{{ product.id }}" class="btn btn-danger ">Delete</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+    {% endfor %}
+    </div>
+
+
+
+    <!-- Pagination -->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+
+    <!-- Accordion -->
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    How can I place an order?
+                </button>
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">You can browse our catalog, add books to your cart, and proceed to
+                    checkout
+                    using your preferred payment method.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                    What payment methods do you accept?
+                </button>
+            </h2>
+            <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">We accept credit/debit cards, PayPal, Apple Pay, and Google Pay.</div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                    How long will it take to receive my order?
+                </button>
+            </h2>
+            <div id="flush-collapseThree" class="accordion-collapse collapse"
+                 data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">Delivery typically takes 3–7 business days, depending on your location
+                    and
+                    the shipping option selected.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                    Can I return or exchange a book?
+                </button>
+            </h2>
+            <div id="flush-collapseFour" class="accordion-collapse collapse"
+                 data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">Yes, returns are accepted within 14 days of delivery if the book is
+                    unused
+                    and in its original condition. Contact support for return instructions.
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

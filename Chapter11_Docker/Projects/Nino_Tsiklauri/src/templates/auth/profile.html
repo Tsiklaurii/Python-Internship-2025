@@ -1,0 +1,31 @@
+{% extends "partials/base.html" %}
+
+{% block title %}
+Viewing profile - {{ current_user.username }}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <!-- Card -->
+    <div class="row">
+        <div class="bg-white shadow h-25 text-center">
+            <img src="/static/upload/{{ current_user.profile_image }}">
+        </div>
+
+        <!--Table-->
+        <table class="table">
+            <tbody>
+            <tr>
+                <th scope="row">Username:</th>
+                <td>{{ current_user.username }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Password:</th>
+                <td>{{ current_user.password }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
